@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CodingEvents.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CodingEvents.Controllers
 {
     public class EventsController : Controller
     {
-        static private Dictionary<string, string> Events = new Dictionary<string, string>();
+        static private List<Event> Events = new List<Event>();
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -23,9 +25,9 @@ namespace CodingEvents.Controllers
         }
 
         [HttpPost("/events/add")]
-        public IActionResult NewEvent(string name, string category)
+        public IActionResult NewEvent(string name)
         {
-            Events.Add(name, category);
+            Events.Add(new Event(name));
 
             return Redirect("/events");
         }
